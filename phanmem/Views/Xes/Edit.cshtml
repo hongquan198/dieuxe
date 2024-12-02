@@ -1,0 +1,147 @@
+﻿@model Quanlixe.Models.Xe
+
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /*.container {
+        margin-top: 30px;
+    }*/
+
+    .form-control, .btn {
+        border-radius: .5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-custom {
+        padding: 12px 25px;
+        font-size: 1.125rem;
+    }
+
+    .abc {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        border-radius: 1rem;
+    }
+
+    .card-header {
+        font-size: 1.25rem;
+        font-weight: bold;
+        background-color: #f1f1f1;
+        border-radius: 1rem 1rem 0 0;
+        padding: 15px;
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+        .card-body .form-control {
+            height: 45px;
+            font-size: 1rem;
+        }
+
+    .btn-primary, .btn-success {
+        font-size: 1.125rem;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
+    }
+</style>
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Card cho toàn bộ form -->
+        <div class="card">
+            <div class="card-header">
+                Chỉnh sửa thông tin xe
+            </div>
+
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.HiddenFor(model => model.BienKiemSoatID)
+
+                <!-- Tên biển kiểm soát -->
+                <div class="form-group">
+                    <label for="TenBienKiemSoat">Tên biển kiểm soát</label>
+                    @Html.EditorFor(model => model.TenBienKiemSoat, new { htmlAttributes = new { @class = "form-control", @id = "TenBienKiemSoat" } })
+                    @Html.ValidationMessageFor(model => model.TenBienKiemSoat, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Loại xe -->
+                <div class="form-group">
+                    <label for="Xe1">Loại xe</label>
+                    @Html.EditorFor(model => model.Xe1, new { htmlAttributes = new { @class = "form-control", @id = "Xe1" } })
+                    @Html.ValidationMessageFor(model => model.Xe1, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Định mức trên 100 km -->
+                <div class="form-group">
+                    <label for="DinhMuc100km">Định mức trên 100 km</label>
+                    @Html.EditorFor(model => model.DinhMuc100km, new { htmlAttributes = new { @class = "form-control", @id = "DinhMuc100km" } })
+                    @Html.ValidationMessageFor(model => model.DinhMuc100km, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Loại nhiên liệu -->
+                <div class="form-group">
+                    <label for="LoaiNhienLieu">Loại nhiên liệu</label>
+                    @Html.EditorFor(model => model.LoaiNhienLieu, new { htmlAttributes = new { @class = "form-control", @id = "LoaiNhienLieu" } })
+                    @Html.ValidationMessageFor(model => model.LoaiNhienLieu, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Nút lưu -->
+                <div class="form-group d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn btn-success mr-3 btn-sm fs-6">
+                        <i class="bi bi-save"></i> Lưu
+                    </button>
+                    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary btn-sm fs-6" })
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <!-- Nút quay lại -->
+    @*<div class="abc">
+        @Html.ActionLink("Quay lại", "Index", new { @class = "btn btn-primary btn-custom" })
+    </div>*@
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

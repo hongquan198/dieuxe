@@ -1,0 +1,58 @@
+﻿@model Quanlixe.Models.NguoiDungXe
+
+@{
+    ViewBag.Title = "Chỉnh sửa Người Dùng Xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container ">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="text-center">Sửa thông tin người dùng xe</h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <!-- Validation summary -->
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.HoTenNguoiDungXeID)
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.HoTenNguoiDungXe, "Người dùng xe", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.HoTenNguoiDungXe, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập tên người dùng xe" } })
+                            @Html.ValidationMessageFor(model => model.HoTenNguoiDungXe, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.DonViCongTac, "Đơn vị công tác", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DonViCongTac, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập đơn vị công tác" } })
+                            @Html.ValidationMessageFor(model => model.DonViCongTac, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Submit Button and Back Button -->
+                    <div class="form-group row text-center">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-primary btn-sm mr-2">
+                                <i class="bi bi-save"></i> Lưu Thay Đổi
+                            </button>
+                            <a href="@Url.Action("Index", "NguoiDungXes")" class="btn btn-secondary btn-sm">
+                                <i class="bi bi-arrow-left"></i> Quay lại danh sách
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script> <!-- Bootstrap Icons -->
+}

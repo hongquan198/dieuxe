@@ -1,0 +1,124 @@
+﻿@model Quanlixe.Models.Xe
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+   /* .container {
+        margin: 20px auto;
+        max-width: 600px;
+        font-family: Arial, sans-serif;
+    }*/
+
+    h4 {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            font-size: 1em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .text-danger {
+        color: red;
+        font-size: 0.9em;
+    }
+</style>
+
+<div class="container">
+    <h4 class="mt-3">Thêm mới xe</h4>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="BienKiemSoatID">STT</label>
+            @Html.EditorFor(model => model.BienKiemSoatID, new { htmlAttributes = new { @class = "form-control", @id = "BienKiemSoatID" } })
+            @Html.ValidationMessageFor(model => model.BienKiemSoatID, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="TenBienKiemSoat">Tên biển kiểm soát</label>
+            @Html.EditorFor(model => model.TenBienKiemSoat, new { htmlAttributes = new { @class = "form-control", @id = "TenBienKiemSoat" } })
+            @Html.ValidationMessageFor(model => model.TenBienKiemSoat, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="Xe1">Loại xe</label>
+            @Html.EditorFor(model => model.Xe1, new { htmlAttributes = new { @class = "form-control", @id = "Xe1" } })
+            @Html.ValidationMessageFor(model => model.Xe1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="DinhMuc100km">Định mức trên 100km</label>
+            @Html.EditorFor(model => model.DinhMuc100km, new { htmlAttributes = new { @class = "form-control", @id = "DinhMuc100km" } })
+            @Html.ValidationMessageFor(model => model.DinhMuc100km, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="LoaiNhienLieu">Loại nhiên liệu</label>
+            @Html.EditorFor(model => model.LoaiNhienLieu, new { htmlAttributes = new { @class = "form-control", @id = "LoaiNhienLieu" } })
+            @Html.ValidationMessageFor(model => model.LoaiNhienLieu, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Thêm</button>
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

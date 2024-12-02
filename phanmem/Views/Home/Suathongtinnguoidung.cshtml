@@ -1,0 +1,127 @@
+﻿@model Quanlixe.Models.Account
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sửa Thông Tin Người Dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+            .card h2 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            .card form {
+                display: flex;
+                flex-direction: column;
+            }
+
+                .card form label {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    color: #333;
+                }
+
+                .card form input {
+                    padding: 10px;
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                }
+
+                .card form button {
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #007bff;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                    .card form button:hover {
+                        background-color: #0056b3;
+                    }
+
+        .message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Thay đổi thông tin người dùng</h2>
+
+            @if (ViewBag.Message != null)
+            {
+                <p class="message">@ViewBag.Message</p>
+            }
+
+            @using (Html.BeginForm("Suathongtinnguoidung", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken() <!-- Bảo mật CSRF -->
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User,"Tên người dùng", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sdt,"Số điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <button type="submit">Lưu thay đổi</button>
+            }
+        </div>
+    </div>
+</body>
+</html>

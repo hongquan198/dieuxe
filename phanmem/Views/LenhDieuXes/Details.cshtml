@@ -1,0 +1,321 @@
+﻿@model Quanlixe.Models.LenhDieuXe
+
+@{
+    ViewBag.Title = "Thông tin lệnh điều xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   /*     background-color: #f9f9f9;*/
+        margin: 0;
+    }
+    .container {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+/*
+    .container {
+        max-width: 1000px;
+        margin: 30px auto;
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+*/
+    .title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .info-box {
+        flex: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: #fafafa;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    input[readonly],
+    textarea[readonly] {
+        cursor: not-allowed;
+        background-color: #f0f0f0;
+    }
+    textarea {
+        resize: none; /* Cho phép thay đổi chiều cao nhưng không thay đổi chiều rộng */
+        overflow-y: auto; /* Khi nội dung vượt quá chiều cao, hiển thị thanh cuộn dọc */
+        min-height: 100px; /* Chiều cao tối thiểu cho textarea */
+        max-height: 300px; /* Chiều cao tối đa cho textarea */
+        line-height: 1.5; /* Đảm bảo khoảng cách dòng dễ đọc */
+    }
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    button {
+        padding: 12px 18px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+    }
+
+    button:first-child {
+        background-color: #6c757d;
+    }
+
+    button:nth-child(2),
+    button:nth-child(3),
+    button:nth-child(4) {
+        background-color: #007bff;
+    }
+
+    button:nth-child(2):hover,
+    button:nth-child(3):hover,
+    button:nth-child(4):hover {
+        background-color: #0056b3;
+    }
+
+    .edit-btn {
+        background-color: #28a745;
+    }
+
+    .edit-btn:hover {
+        background-color: #218838;
+    }
+
+    
+</style>
+
+<div class="container">
+    <h2 class="title">Chi tiết lệnh điều xe</h2>
+
+    <div class="section">
+        <!-- Phần thông tin xe và công tác -->
+        <div class="info-box">
+            <h3>🚗 Thông tin người dùng xe</h3>
+            <div class="form-group">
+                <label>Lái xe</label>
+                <input type="text" value="@Html.DisplayFor(model => model.LaiXe.HoTenLaiXe)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Người dùng xe</label>
+                <input type="text" value="@Html.DisplayFor(model => model.NguoiDungXe.HoTenNguoiDungXe)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Chức vụ</label>
+                <input type="text" value="@Html.DisplayFor(model => model.ChucVu.TenChucVu)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Biển kiểm soát</label>
+                <input type="text" value="@Html.DisplayFor(model => model.Xe.TenBienKiemSoat)" readonly />
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📍 Địa điểm & Nội dung công việc</h3>
+            <div class="form-group">
+                <label>Địa điểm công tác</label>
+                <textarea readonly>@Html.DisplayFor(model => model.DiaDiemCongTac)</textarea>
+            </div>
+            <div class="form-group">
+                <label>Nội dung công việc</label>
+                <textarea readonly>@Html.DisplayFor(model => model.NoiDungCongViec)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <!-- Phần thời gian và thông tin đi cùng -->
+        <div class="info-box">
+            <h3>📅 Thông tin khác</h3>
+            <div class="form-group">
+                <label>Ngày đi</label>
+                <input type="text" value="@String.Format("{0:dd/MM/yyyy}", Model.NgayDi)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Ngày về</label>
+                <input type="text" value="@String.Format("{0:dd/MM/yyyy}", Model.NgayVe)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Cán bộ đi cùng</label>
+                <input type="text" value="@Html.DisplayFor(model => model.CanBoDiCung)" readonly />
+            </div>
+          
+           
+        </div>
+
+        <!-- Phần nhiên liệu và tổng km đã đi -->
+        <div class="info-box">
+            <h3>⛽ Nhiên liệu</h3>
+            <div class="form-group">
+                <label>Loại nhiên liệu</label>
+                <input type="text" value="@Html.DisplayFor(model => model.LoaiNhienLieu)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Nhiên liệu đã cấp(lít)</label>
+                <input type="text" value="@Html.DisplayFor(model => model.NhienLieuDaCap)" readonly />
+            </div>
+            <div class="form-group">
+                <label>Dự kiến km</label>
+                <input type="text" value="@Html.DisplayFor(model => model.TongSoKMDaDi)" readonly />
+            </div>
+            @if (Model.Status == true)
+            {
+                <div class="form-group">
+                    <label>Tổng số km đã đi thực tế</label>
+                    <input type="text" value="@Html.DisplayFor(model => model.TongSoKMThucTe)" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Nhiên liệu sử dụng thực tế</label>
+                    <input type="text" value="@Html.DisplayFor(model => model.NhienLieuSuDungThucTe)" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label>Nhiên liệu còn lại</label>
+                    <input type="text" value="@Html.DisplayFor(model => model.NhienLieuConLai)" readonly />
+                </div>
+
+            }
+        </div>
+    </div>
+
+    <div class="buttons d-flex justify-content-center">
+        <!-- Các nút bấm -->
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại danh sách</a>
+
+        @using (Html.BeginForm("GenerateDocument", "LenhDieuXes", FormMethod.Post))
+        {
+            @Html.Hidden("HoTenNguoiDungXe", Model.NguoiDungXe.HoTenNguoiDungXe)
+            @Html.Hidden("ChucVu", Model.ChucVu.TenChucVu)
+            @Html.HiddenFor(model => model.NgayDi)
+            @Html.HiddenFor(model => model.DiaDiemCongTac)
+            @Html.HiddenFor(model => model.CanBoDiCung)
+            <button type="submit" class="btn btn-primary">In giấy đề nghị sử dụng xe</button>
+        }
+
+        @*@using (Html.BeginForm("LenhDieuXe", "LenhDieuXes", FormMethod.Post))
+        {
+            @Html.Hidden("Xe", Model.Xe.TenBienKiemSoat)
+            @Html.Hidden("HoTenLaiXe", Model.LaiXe.HoTenLaiXe)
+            @Html.Hidden("HoTenNguoiDungXe", Model.NguoiDungXe.HoTenNguoiDungXe)
+            @Html.Hidden("ChucVu", Model.ChucVu.TenChucVu)
+            @Html.Hidden("DonViCongTac", Model.NguoiDungXe.DonViCongTac)
+            @Html.HiddenFor(model => model.DiaDiemCongTac)
+            @Html.HiddenFor(model => model.NoiDungCongViec)
+            @Html.HiddenFor(model => model.NgayDi)
+            @Html.HiddenFor(model => model.NgayVe)
+            @Html.HiddenFor(model => model.TongSoKMDaDi)
+            @Html.HiddenFor(model => model.NhienLieuDaCap)
+            @Html.HiddenFor(model => model.LoaiNhienLieu)
+            @Html.HiddenFor(model => model.CanBoDiCung)
+            @Html.HiddenFor(model => model.ID)
+            <button type="submit" class="btn btn-primary">In lệnh điều xe</button>
+        }
+
+        @using (Html.BeginForm("CapNhienLieu", "LenhDieuXes", FormMethod.Post))
+        {
+            @Html.Hidden("Xe", Model.Xe.TenBienKiemSoat)
+            @Html.Hidden("HoTenLaiXe", Model.LaiXe.HoTenLaiXe)
+            @Html.Hidden("HoTenNguoiDungXe", Model.NguoiDungXe.HoTenNguoiDungXe)
+            @Html.Hidden("ChucVu", Model.ChucVu.TenChucVu)
+            @Html.Hidden("DonViCongTac", Model.NguoiDungXe.DonViCongTac)
+            @Html.HiddenFor(model => model.DiaDiemCongTac)
+            @Html.HiddenFor(model => model.NoiDungCongViec)
+            @Html.HiddenFor(model => model.NgayDi)
+            @Html.HiddenFor(model => model.NgayVe)
+            @Html.HiddenFor(model => model.TongSoKMDaDi)
+            @Html.HiddenFor(model => model.NhienLieuDaCap)
+            @Html.HiddenFor(model => model.LoaiNhienLieu)
+            @Html.HiddenFor(model => model.CanBoDiCung)
+            @Html.HiddenFor(model => model.ID)
+            <button type="submit" class="btn btn-primary">In phiếu cấp nhiên liệu</button>
+        }*@
+
+        @using (Html.BeginForm("CapNhienLieuvaLenhDieuXe", "LenhDieuXes", FormMethod.Post))
+        {
+            @Html.Hidden("Xe", Model.Xe?.TenBienKiemSoat ?? "")
+            @Html.Hidden("BienKiemSoatID", Model.Xe?.BienKiemSoatID ?? "")
+            @Html.Hidden("HoTenLaiXe", Model.LaiXe?.HoTenLaiXe ?? "")
+            @Html.Hidden("HoTenNguoiDungXe", Model.NguoiDungXe?.HoTenNguoiDungXe ?? "")
+            @Html.Hidden("ChucVu", Model.ChucVu?.TenChucVu ?? "")
+            @Html.Hidden("DonViCongTac", Model.NguoiDungXe?.DonViCongTac ?? "")
+            @Html.HiddenFor(model => model.DiaDiemCongTac)
+            @Html.HiddenFor(model => model.NoiDungCongViec)
+            @Html.HiddenFor(model => model.NgayDi)
+            @Html.HiddenFor(model => model.NgayVe)
+            @Html.HiddenFor(model => model.TongSoKMDaDi)
+            @Html.HiddenFor(model => model.NhienLieuDaCap)
+            @Html.HiddenFor(model => model.LoaiNhienLieu)
+            @Html.HiddenFor(model => model.CanBoDiCung)
+            @Html.HiddenFor(model => model.ID)
+            @Html.Hidden("DinhMuc100km", Model.Xe.DinhMuc100km.Value.ToString("0.##"))
+
+            <button type="submit" class="btn btn-primary">In lệnh điều xe và phiếu cấp nhiên liệu</button>
+        }
+
+
+
+
+
+
+
+
+
+
+        <a href="@Url.Action("Edit", new { id = Model.ID })" class="btn btn-success edit-btn">Chỉnh sửa</a>
+    </div>
+</div>

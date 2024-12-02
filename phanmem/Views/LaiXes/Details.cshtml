@@ -1,0 +1,25 @@
+﻿@model Quanlixe.Models.LaiXe
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Thông tin chi tiết lái xe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên lái xe
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoTenLaiXe)
+        </dd>
+
+       
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.LaiXeID })" class="btn btn-success mr-2">Sửa</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+</p>

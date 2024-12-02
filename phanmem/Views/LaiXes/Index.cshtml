@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Quanlixe.Models.LaiXe>
+
+@{
+    ViewBag.Title = "Danh sách Lái Xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container py-5">
+    <!-- Tiêu đề và nút Thêm mới -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-primary">Danh sách lái xe</h3>
+        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <i class="bi bi-plus-circle"></i> Thêm mới
+        </a>
+    </div>
+
+    <!-- Bảng danh sách Lái Xe -->
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Họ tên lái xe</th>
+                <th class="text-center">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.HoTenLaiXe)</td>
+                    <td class="text-center">
+                        <!-- Liên kết Sửa, Xem, Xóa với biểu tượng -->
+                        <a href="@Url.Action("Edit", new { id = item.LaiXeID })" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i> Sửa
+                        </a>
+                        @*<a href="@Url.Action("Details", new { id = item.LaiXeID })" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> Xem
+                            </a>*@
+                        <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+                           onclick="showDeleteModal(@item.LaiXeID)">
+                            <i class="bi bi-trash"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="close" onclick="hideModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa lái xe này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="hideModal()">Hủy</button>
+                <form id="deleteForm" method="post" action="">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    function showDeleteModal(id) {
+        var form = document.getElementById("deleteForm");
+        form.action = '@Url.Action("Delete", "LaiXes")/' + id;
+        $('#deleteModal').modal('show');
+    }
+    function hideModal() {
+        $('#deleteModal').modal('hide'); // Đóng modal
+    }
+    </script>
+}
+

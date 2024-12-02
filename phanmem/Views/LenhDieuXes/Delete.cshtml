@@ -1,0 +1,120 @@
+﻿@model Quanlixe.Models.LenhDieuXe
+
+@{
+    ViewBag.Title = "Xác Nhận Xóa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .confirmation-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        color: #dc3545;
+    }
+
+    .info {
+        margin: 20px 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+        .info dt {
+            font-weight: bold;
+            color: #555;
+        }
+
+    .form-actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 0 5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    .btn-default {
+        background-color: #f8f9fa;
+        color: #333;
+        border: 1px solid #ccc;
+    }
+
+        .btn-default:hover {
+            background-color: #e2e6ea;
+        }
+</style>
+
+<div class="confirmation-container">
+    <h3>Bạn có chắc chắn muốn xóa?</h3>
+    <div class="info">
+        <dl>
+            <dt>Họ tên lái xe:</dt>
+            <dd>@Html.DisplayFor(model => model.LaiXe.HoTenLaiXe)</dd>
+
+            <dt>Người dùng xe:</dt>
+            <dd>@Html.DisplayFor(model => model.NguoiDungXe.HoTenNguoiDungXe)</dd>
+
+            <dt>Địa điểm công tác:</dt>
+            <dd>@Html.DisplayFor(model => model.DiaDiemCongTac)</dd>
+
+            <dt>Nội dung công việc:</dt>
+            <dd>@Html.DisplayFor(model => model.NoiDungCongViec)</dd>
+
+            <dt>Cán bộ đi cùng:</dt>
+            <dd>@Html.DisplayFor(model => model.CanBoDiCung)</dd>
+
+            <dt>Ngày đi:</dt>
+            <dd>@Html.DisplayFor(model => model.NgayDi)</dd>
+
+            <dt>Ngày về:</dt>
+            <dd>@Html.DisplayFor(model => model.NgayVe)</dd>
+
+            <dt>Tổng số KM đã đi:</dt>
+            <dd>@Html.DisplayFor(model => model.TongSoKMDaDi)</dd>
+
+            <dt>Nhiên liệu đã cấp:</dt>
+            <dd>@Html.DisplayFor(model => model.NhienLieuDaCap)</dd>
+
+            <dt>Loại nhiên liệu:</dt>
+            <dd>@Html.DisplayFor(model => model.LoaiNhienLieu)</dd>
+
+            <dt>Chức vụ:</dt>
+            <dd>@Html.DisplayFor(model => model.ChucVu.TenChucVu)</dd>
+
+            <dt>Biển kiểm soát:</dt>
+            <dd>@Html.DisplayFor(model => model.Xe.TenBienKiemSoat)</dd>
+        </dl>
+    </div>
+    <div class="form-actions">
+        @using (Html.BeginForm("Delete", "LenhDieuXe", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
+        }
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model Quanlixe.Models.NguoiDungXe
+
+@{
+    ViewBag.Title = "Xóa Người Dùng Xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+
+
+    <h3>Bạn có chắc chắn muốn xóa không?</h3>
+    <div class="p-3 mt-3">
+        <h4 class="mb-4">Thông tin người dùng xe</h4>
+   
+        <dl class="row">
+            <dt class="col-sm-3">
+                Họ tên người dùng xe
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.HoTenNguoiDungXe)
+            </dd>
+            <dt class="col-sm-3">
+                Đơn vị công tác
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DonViCongTac)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary ml-2" })
+               
+            </div>
+        }
+    </div>
+</div>

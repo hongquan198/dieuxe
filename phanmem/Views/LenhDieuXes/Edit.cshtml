@@ -1,0 +1,225 @@
+﻿@model Quanlixe.Models.LenhDieuXe
+
+@{
+    ViewBag.Title = "Chỉnh sửa lệnh điều xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Dùng lại các CSS đã được chỉnh sửa từ View Detail */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+    .container {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .info-box {
+        flex: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: #fafafa;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    select, input,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    textarea {
+        resize: none;
+        min-height: 100px;
+        max-height: 300px;
+        line-height: 1.5;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    button {
+        padding: 12px 18px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:first-child {
+            background-color: #6c757d;
+        }
+
+        button:last-child {
+            background-color: #28a745;
+        }
+
+            button:last-child:hover {
+                background-color: #218838;
+            }
+</style>
+
+<div class="container">
+    <h2 class="title">Chỉnh sửa lệnh điều xe</h2>
+
+    @using (Html.BeginForm("Edit", "LenhDieuXes", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="section">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+            <!-- Thông tin người dùng xe -->
+            <div class="info-box">
+                <h3>🚗 Thông tin người dùng xe</h3>
+                <div class="form-group">
+                    <label>Lái xe</label>
+                    @Html.DropDownList("LaiXeID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LaiXeID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Người dùng xe</label>
+                    @Html.DropDownList("HoTenNguoiDungXeID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HoTenNguoiDungXeID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Chức vụ</label>
+                    @Html.DropDownList("ChucVuID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ChucVuID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Biển kiểm soát</label>
+                    @Html.DropDownList("BienKiemSoatID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BienKiemSoatID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Địa điểm & Nội dung công việc -->
+            <div class="info-box">
+                <h3>📍 Địa điểm & Nội dung công việc</h3>
+                <div class="form-group">
+                    <label>Địa điểm công tác</label>
+                    @Html.TextAreaFor(model => model.DiaDiemCongTac, new { @class = "form-control", placeholder = "Nhập địa điểm công tác" })
+                </div>
+                <div class="form-group">
+                    <label>Nội dung công việc</label>
+                    @Html.TextAreaFor(model => model.NoiDungCongViec, new { @class = "form-control", placeholder = "Nhập nội dung công việc" })
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <!-- Thời gian & thông tin đi cùng -->
+            <div class="info-box">
+                <h3>📅 Thông tin thời gian</h3>
+                <div class="form-group">
+                    <label>Ngày đi</label>
+                    @Html.TextBoxFor(model => model.NgayDi, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </div>
+                <div class="form-group">
+                    <label>Ngày về</label>
+                    @Html.TextBoxFor(model => model.NgayVe, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </div>
+                <div class="form-group">
+                    <label>Cán bộ đi cùng</label>
+                    @Html.TextBoxFor(model => model.CanBoDiCung, new { @class = "form-control", placeholder = "Nhập tên cán bộ đi cùng" })
+                </div>
+            </div>
+
+            <!-- Nhiên liệu -->
+            <div class="info-box">
+                <h3>⛽ Thông tin nhiên liệu</h3>
+                <div class="form-group">
+                    <label>Loại nhiên liệu</label>
+                    @Html.TextBoxFor(model => model.LoaiNhienLieu, new { @class = "form-control", placeholder = "Nhập loại nhiên liệu", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label>Nhiên liệu đã cấp(lít)</label>
+                    @Html.TextBoxFor(model => model.NhienLieuDaCap, new { @class = "form-control", placeholder = "Nhập lượng nhiên liệu đã cấp", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label>Dự kiến km</label>
+                    @Html.TextBoxFor(model => model.TongSoKMDaDi, new { @class = "form-control", placeholder = "Nhập tổng số km đã đi" })
+                </div>
+                @if (Model.Status == true)
+                {
+                    <div class="form-group">
+                        <label>Tổng số km đã đi thực tế</label>
+                        @Html.TextBoxFor(model => model.TongSoKMThucTe, new { @class = "form-control", placeholder = "Nhập tổng số km đã đi" })
+                    </div>
+                    <div class="form-group">
+                        <label>Nhiên liệu sử dụng thực tế</label>
+                        @Html.TextBoxFor(model => model.NhienLieuSuDungThucTe, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nhiên liệu còn lại</label>
+                        @Html.TextBoxFor(model => model.NhienLieuConLai, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                    </div>
+
+                }
+
+            </div>
+        </div>
+        <!-- Nút hành động -->
+        <div class="buttons">
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+            <button type="submit" class="btn btn-success">Lưu chỉnh sửa</button>
+        </div>
+    }
+</div>

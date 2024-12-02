@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .icon-container {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #e9f7ef;
+        display: flex;
+        align-items: center;
+        justify-content: center;/*
+        margin-right: 0.5rem; */
+        margin-bottom: 1rem;
+    }
+
+    .card {
+        height: 120px; /* Chiều cao cố định */
+        width:170px;
+        display: flex; /* Để sử dụng flexbox */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        transition: transform 0.3s, box-shadow 0.3s;
+        padding: 10px; /* Thêm khoảng đệm bên trong */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    a {
+        display: flex;
+        align-items: center; 
+        text-decoration: none; 
+        color: #343a40; 
+        font-size: 0.8rem; 
+        font-weight: 600; 
+        margin: 0; 
+    }
+
+        a:hover {
+            text-decoration: underline; 
+            color: #0056b3; 
+        }
+    
+</style>
+
+<div class="container min-vh-100 py-5">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4 ">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <span>Cập nhật lệnh điều xe</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span>Nhật kí điều xe</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <span>In giấy đề nghị sử dụng xe</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-print"></i>
+                </div>
+                <span>In lệnh điều xe</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-gas-pump"></i>
+                </div>
+                <span>In phiếu cấp xăng</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Index", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-map"></i>
+                </div>
+                <span>In lịch trình</span>
+            </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <a href="@Url.Action("Thongke", "LenhDieuXes")" class="bg-white rounded shadow-sm card">
+                <div class="icon-container">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <span>Báo cáo theo tháng và năm</span>
+            </a>
+        </div>
+    </div>
+</div>

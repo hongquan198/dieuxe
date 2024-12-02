@@ -1,0 +1,27 @@
+﻿@model Quanlixe.Models.ChucVu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+    <h4>Thông tin chi tiết chức vụ</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên chức vụ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenChucVu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.ChucVuID })" class="btn btn-success mr-2">Sửa</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+</p>

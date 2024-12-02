@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương trình điều xe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+   
+    <link rel="shortcut icon" href="~/image/car.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+     /*   navbar*/
+        .navbar {
+            background-color: #343a40;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           
+        }
+      
+        .nav-link {
+            color: #ffffff;
+            transition: background-color 0.3s;
+        }
+
+            .nav-link:hover {
+                background-color: #495057;
+                color: #ffffff;
+            }
+
+        .dropdown-menu {
+            background-color: #343a40;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-item {
+            color: #ffffff;
+        }
+
+            .dropdown-item:hover {
+                background-color: #495057;
+            }
+
+        .user-menu-container {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .welcome-text {
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+        .admin-menu {
+            position: relative;
+        }
+
+        .admin-dropdown {
+            display: none; /* Ẩn menu */
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #343a40;
+            border-radius: 0.25rem;
+            z-index: 1000;
+            min-width: 200px;
+        }
+
+        .admin-menu:hover > .admin-dropdown {
+            display: block; /* Hiển thị dropdown khi hover vào admin-menu */
+        }
+
+        .admin-submenu {
+            position: relative;
+        }
+
+            .admin-submenu:hover > .admin-dropdown {
+                display: block;
+                width: 200px;
+                /* Hiển thị submenu khi hover vào "Chức năng admin" */
+                top: -50px;
+                left: -200px;
+            }
+
+
+      /*  màn hình chính*/
+        html, body {
+         
+            margin: 0;
+            padding: 0; /* Loại bỏ padding và margin mặc định */
+            
+        }
+        .container-fluid.body-content {
+            display: flex;
+            height: calc(100vh - 60px); /* Chiếm toàn bộ chiều cao trừ chiều cao của navbar */
+            width: 100%;
+            margin: 0; /* Loại bỏ margin mặc định */
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 250px; /* Đặt chiều rộng cố định cho sidebar */
+            background-color: #343a40; /* Màu nền tối cho sidebar */
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ bên phải */
+            height: 100%; /* Chiếm toàn bộ chiều cao */
+            display: flex;
+            flex-direction: column; /* Đảm bảo danh sách items trong sidebar xếp theo cột */
+        }
+
+        ul.nav {
+            list-style-type: none; /* Loại bỏ dấu chấm */
+            padding: 0;
+            margin: 0;
+        }
+
+            ul.nav .nav-item {
+                margin-bottom: 10px; /* Khoảng cách giữa các mục */
+            }
+
+            ul.nav .nav-link {
+                color: white; /* Màu chữ trắng */
+                text-decoration: none; /* Loại bỏ gạch dưới */
+                font-size: 16px; /* Kích thước font chữ */
+                display: block;
+                padding: 10px;
+                border-radius: 5px; /* Bo góc cho các mục */
+                transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+            }
+
+                /* Hiệu ứng hover */
+                ul.nav .nav-link:hover {
+                    background-color: #495057; /* Màu nền khi hover */
+                }
+
+        /* Phần nội dung bên phải */
+        .content-area {
+            flex: 1; /* Phần này chiếm phần còn lại của chiều rộng */
+            padding: 20px; /* Thêm padding để không bị sát viền */
+            background-color: #f8f9fa; /* Màu nền sáng cho phần nội dung */
+            overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+        }
+
+            .content-area h1 {
+                font-size: 2rem;
+                color: #343a40;
+                margin-bottom: 20px;
+            }
+
+            .content-area p {
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #555;
+            }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("Index", "LenhDieuXes")">Chương trình điều xe</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    @if (Request.Cookies["UserRole"] != null)
+                    {
+                        var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                        var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                        var username = authTicket?.Name;
+                        <li class="nav-item user-menu-container">
+                            <span class="navbar-text text-light welcome-text">Xin chào, @username</span>
+                            <div class="nav-item dropdown admin-menu">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-cog"></i>
+                                </a>
+                                <div class="admin-dropdown">
+                                    <a class="dropdown-item" href="@Url.Action("ChangePassword", "Home")">Đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="@Url.Action("Thongtinnguoidung", "Home")">Thông tin người dùng</a>
+                                    <a class="dropdown-item" href="@Url.Action("RequestEmailConfirmation", "Home")">Xác thực email</a>
+                                    @if (Request.Cookies["UserRole"] != null && Request.Cookies["UserRole"].Value == "1")
+                                    {
+                                        <div class="admin-submenu">
+                                            <a class="dropdown-item dropdown-toggle" href="#">Chức năng admin</a>
+                                            <div class="admin-dropdown">
+                                                <a class="dropdown-item" href="@Url.Action("Index", "LenhDieuXes")">Lệnh điều xe</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index", "Xes")">Xe</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index", "ChucVus")">Chức vụ</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index", "LaiXes")">Lái xe</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index", "NguoiDungXes")">Người dùng xe</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index", "Accounts")">Quản lí tài khoản</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="@Url.Action("Logout", "Home")">Đăng xuất</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Đăng nhập</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid body-content d-flex">
+        <!-- Phần điều hướng bên trái -->
+        <div class="sidebar">
+            <ul class="nav flex-column">
+                <!-- Danh sách lệnh điều xe -->
+                <li class="nav-item">
+                    @Html.ActionLink("Danh sách lệnh điều xe", "Index", "LenhDieuXes", new { @class = "nav-link" })
+                </li>
+
+                <!-- Thống kê -->
+                <li class="nav-item">
+                    @Html.ActionLink("Thống kê", "Thongke", "LenhDieuXes", new { @class = "nav-link" })
+                </li>
+            </ul>
+        </div>
+
+        <!-- Phần nội dung bên phải -->
+        <div class="content-area">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

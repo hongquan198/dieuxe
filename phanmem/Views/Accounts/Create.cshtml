@@ -1,0 +1,114 @@
+﻿@model Quanlixe.Models.Account
+
+
+@{
+
+    Layout = null;
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 400px; /* Giảm chiều rộng để vừa màn hình */
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        font-size: 1.5em; /* Kích thước tiêu đề nhỏ hơn */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px; /* Điều chỉnh padding nhỏ hơn */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em; /* Kích thước nút nhỏ hơn */
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .text-danger {
+        color: red;
+        font-size: 0.9em;
+    }
+</style>
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <h2>Thêm tài khoản</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User,"Tên đăng nhập", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên người dùng" } })
+            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password,"Mật khẩu", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Mật khẩu", type = "password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sdt,"Số điện thoại", htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", placeholder = "Số điện thoại" } })
+            @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Vai trò" } })
+            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Thêm mới" class="btn" />
+        </div>
+    }
+</div>
